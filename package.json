@@ -1,0 +1,17 @@
+{
+  "name": "jedios",
+  "version": "0.1.0",
+  "description": "Hello, world!",
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-connect": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-less": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-coffee": "*",
+    "grunt-angular-templates": "*",
+    "grunt-contrib-watch": "*"
+  }
+}
