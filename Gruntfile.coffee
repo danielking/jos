@@ -26,7 +26,7 @@ module.exports = (grunt) ->
       libs:
         expand: true
         cwd: 'src'
-        src: ['core/js/**/*.js', 'core/css/*.css', 'core/fonts/*']
+        src: ['core/js/**/*.js', 'core/css/*.css', 'core/font/*']
         dest: 'build/'
     coffee:
       options:
@@ -41,7 +41,7 @@ module.exports = (grunt) ->
           ]
     ngtemplates:
       core:
-        cwd: 'src/core/templates/'
+        cwd: 'src/core/tpl/'
         src: '**.html'
         dest: 'build/core/js/templates.js'
     watch:
@@ -51,7 +51,7 @@ module.exports = (grunt) ->
         files: ['src/index.html', 'src/settings.json']
         tasks: ['copy:static']
       core_template:
-        files: 'src/core/templates/**.html'
+        files: 'src/core/tpl/**.html'
         tasks: ['ngtemplates:core']        
       core_coffee:
         files: 'src/core/js/**/*.coffee'
@@ -63,7 +63,7 @@ module.exports = (grunt) ->
   settings = require './src/settings.json'
   for app in settings.apps
     config.watch["app_#{app}_template"] =
-      files: "src/#{app}/templates/**.html"
+      files: "src/#{app}/tpl/**.html"
       tasks: ["ngtemplates:#{app}"]
 
     config.watch["app_#{app}_coffee"] =
@@ -79,7 +79,7 @@ module.exports = (grunt) ->
       tasks: ["copy:app_#{app}"]
 
     config.ngtemplates[app] =
-      cwd: "src/#{app}/templates/"
+      cwd: "src/#{app}/tpl/"
       src: '**.html'
       dest: "build/#{app}/js/templates.js"
 

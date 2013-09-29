@@ -1,4 +1,4 @@
-angular.module(APP_NAME).controller 'AppController', ['$scope', '$rootScope', ($scope, $rootScope) ->
+angular.module(APP_NAME).controller 'AppController', ['$scope', 'common.message', ($scope, message) ->
   $scope.app_name = APP_NAME
-  console.log 'clock', $rootScope
+  message.publish 'app', 'hello'
 ]
