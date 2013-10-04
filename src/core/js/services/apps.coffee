@@ -4,7 +4,10 @@ angular.module('core').service 'apps', ['$http', '$rootScope', ($http, $rootScop
     eval js
 
   loadCss = (css) ->
-    # console.log css
+    console.log css
+    node = document.createElement 'style'
+    node.innerHTML = css
+    document.head.appendChild node
 
   $(document).on 'app_reg', (evt, app) ->
     $rootScope.$$apps = $rootScope.$$apps or []
@@ -40,21 +43,6 @@ angular.module('core').service 'apps', ['$http', '$rootScope', ($http, $rootScop
           $rootScope.$broadcast 'app_loaded_all'
 
   active: (app) ->
-    appViewport = $("##{app.name}")
-    if appViewport.length == 0
-      $http.get("#{app.name}/index.html").success((data) ->
-          $('#apps > .app').hide()
-          appViewport = $('<div/>')
-          appViewport.attr(id: app.name).addClass('app').append(data).appendTo $('#apps')
-          angular.bootstrap appViewport, [app.name]
-          app.loaded = true
-          for _app in $rootScope.$$apps
-            _app.actived = _app == app
-        ).error(-> )
-
-    else if appViewport.length == 1
-      $('#apps > .app').hide()
-      appViewport.show()
-      for _app in $rootScope.$$apps
-        _app.actived = _app == app
+    for _app in $rootScope.$$apps
+      _app.actived = _app == app
 ]
