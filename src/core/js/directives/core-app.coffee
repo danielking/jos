@@ -10,5 +10,7 @@ angular.module('core').directive 'coreApp', ['common.message', '$http', (message
             angular.bootstrap appBox, [scope.app.name]
             scope.app.loaded = true
             message.publish 'app', app_name: scope.app.name, event: 'loaded'
+            element.addClass 'app'
+            initUi element
           ).error(-> )
 ]

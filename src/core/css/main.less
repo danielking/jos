@@ -1,26 +1,36 @@
 body {
+	margin: 0;
+	padding: 0;
+	font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	background: #FCFCFC url(../images/bg.jpg) repeat;
+	color: #555555;
+	min-width: 320px;
+	font-size: 90%;
 }
-.navbar {
-	min-width: 800px;
-	.open {
-		a.navbar-brand {
-			background: #eee !important;
-			color: #444444;
+
+a, .text {
+	i.icon {
+		margin-right: 0.5em !important;
+		margin-left: 0 !important;
+	}
+}
+.right {
+	.text  {
+		i.icon {
+			margin-right: 0 !important;
+			margin-left: 0 !important;
 		}
 	}
 }
-.dropdown-menu {
-	box-shadow: none;
-	border-radius: 0;
-}
+
 #apps {
 	position: absolute;
-	top: 51px;
+	top: 43px;
 	bottom: 0;
 	left: 0;
 	right: 0;
 
 	& > .app {
-		padding: 8px;
+		padding: 5px;
 	}
 }

@@ -26,7 +26,7 @@ module.exports = (grunt) ->
       libs:
         expand: true
         cwd: 'src'
-        src: ['core/js/**/*.js', 'core/css/*.css', 'core/font/*']
+        src: ['core/js/**/*.js', 'core/css/*.css', 'core/fonts/*', 'core/images/*']
         dest: 'build/'
     coffee:
       options:
@@ -39,6 +39,12 @@ module.exports = (grunt) ->
             'src/core/js/services/*.coffee',
             'src/core/js/controllers/*.coffee',
           ]
+    jade:
+      core:
+        files:
+          'src/core/tpl/': ['src/core/tpl/*.jade']
+        options:
+          client: false
     ngtemplates:
       core:
         cwd: 'src/core/tpl/'
@@ -50,6 +56,9 @@ module.exports = (grunt) ->
       core_html:
         files: ['src/index.html', 'src/settings.json']
         tasks: ['copy:static']
+      core_jade:
+        files: 'src/core/tpl/**.jade'
+        tasks: ['jade:core']        
       core_template:
         files: 'src/core/tpl/**.html'
         tasks: ['ngtemplates:core']        
@@ -62,6 +71,10 @@ module.exports = (grunt) ->
 
   settings = require './src/settings.json'
   for app in settings.apps
+    config.watch["app_#{app}_jade"] =
+      files: "src/#{app}/tpl/**.jade"
+      tasks: ["jade:#{app}"]
+
     config.watch["app_#{app}_template"] =
       files: "src/#{app}/tpl/**.html"
       tasks: ["ngtemplates:#{app}"]
@@ -77,6 +90,13 @@ module.exports = (grunt) ->
     config.watch["app_#{app}_copy"] =
       files: ["src/#{app}/index.html", "src/#{app}/settings.json"]
       tasks: ["copy:app_#{app}"]
+
+    config.jade[app] =
+      core:
+        files:
+          'src/#{app}/tpl/': ['src/#{app}/tpl/*.jade']
+        options:
+          client: false
 
     config.ngtemplates[app] =
       cwd: "src/#{app}/tpl/"
@@ -101,7 +121,7 @@ module.exports = (grunt) ->
       cwd: "src/#{app}"
       src: ['index.html', 'settings.json']
       dest: "build/#{app}"
-  console.log config
+  # console.log config
   grunt.initConfig config
 
   grunt.loadNpmTasks 'grunt-contrib-connect'
@@ -111,7 +131,8 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-angular-templates'
+  grunt.loadNpmTasks 'grunt-jade'
 
   grunt.registerTask 'default', ['connect', 'watch']
-  grunt.registerTask 'build', ['copy', 'ngtemplates', 'coffee', 'less']
+  grunt.registerTask 'build', ['copy', 'jade', 'ngtemplates', 'coffee', 'less']
 

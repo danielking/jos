@@ -1,0 +1,26 @@
+.ui.menu.inverted.fixed
+  .item.ui.dropdown
+    .text
+      strong
+        i.icon.laptop
+        | jOS
+    .menu
+      .item
+        i.icon.settings.small
+        | Settings
+      .item
+        i.icon.sign.in.small
+        | Login
+  a.item(ng-repeat='app in $$apps', ng-class='{active: app.actived}', ng-click='activeApp(app)')
+    i.icon.angle.right
+    | {{app.title}}
+  .item.ui.right.dropdown.top.pointing
+    .text
+      i.icon.ellipsis.horizontal
+    .menu
+      .item
+        i.icon.settings.small
+        | Settings
+      .item
+        i.icon.sign.in.small
+        | Login

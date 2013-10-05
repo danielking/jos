@@ -8,5 +8,11 @@ angular.module('core').run ['apps', '$rootScope', 'common.message', (apps, $root
   message.subscribe 'app'
 ]
 
+window.initUi = (el) ->
+  el = $(el)
+  el.find('.ui.dropdown').dropdown
+    debug: false
+
 $ ->
   angular.bootstrap document, ['core']
+  initUi document

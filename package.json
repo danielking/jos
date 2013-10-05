@@ -12,6 +12,7 @@
     "grunt-contrib-concat": "*",
     "grunt-contrib-coffee": "*",
     "grunt-angular-templates": "*",
-    "grunt-contrib-watch": "*"
+    "grunt-contrib-watch": "*",
+    "grunt-jade": "*"
   }
 }
