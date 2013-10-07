@@ -4,7 +4,6 @@ angular.module('core').service 'apps', ['$http', '$rootScope', ($http, $rootScop
     eval js
 
   loadCss = (css) ->
-    console.log css
     node = document.createElement 'style'
     node.innerHTML = css
     document.head.appendChild node

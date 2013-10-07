@@ -1,26 +1,32 @@
-.ui.menu.inverted.fixed
-  .item.ui.dropdown
-    .text
-      strong
-        i.icon.laptop
-        | jOS
-    .menu
-      .item
-        i.icon.settings.small
-        | Settings
-      .item
-        i.icon.sign.in.small
-        | Login
-  a.item(ng-repeat='app in $$apps', ng-class='{active: app.actived}', ng-click='activeApp(app)')
+.ui.small.menu.fixed
+  .item
+    i.icon.laptop
+    strong
+      | jOS
+    //- .text
+    //-   strong
+    //-     i.icon.laptop
+    //-     | jOS
+    //- .menu
+    //-   .item(ng-repeat='app in $$apps', ng-click='activeApp(app)')
+    //-     i.icon.settings.small
+    //-     | {{app.title}}
+    //-   .item
+    //-     i.icon.settings.small
+    //-     | Settings
+    //-   .item
+    //-     i.icon.sign.in.small
+    //-     | Login
+  a.item(ng-click="toggleDesktop()", ng-class="{active: desktopActive}")
+    i.icon.home.small
+    | Home
+  a.item(ng-repeat='app in $$apps | filter: {loaded: true}', ng-class='{active: (app.actived && !desktopActive)}', ng-click='activeApp(app)')
     i.icon.angle.right
     | {{app.title}}
-  .item.ui.right.dropdown.top.pointing
-    .text
-      i.icon.ellipsis.horizontal
-    .menu
-      .item
-        i.icon.settings.small
-        | Settings
-      .item
-        i.icon.sign.in.small
-        | Login
+  a.item.right(ng-click='openSettingsDialog()')
+    i.icon.settings.small
+    | Settings
+  a.item.right(ng-click='openSignInDialog()')
+    i.icon.sign.in.small
+    | Sign in
+    
