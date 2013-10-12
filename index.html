@@ -1,57 +1,34 @@
 <!DOCTYPE html>
 <html>
-
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="jOS : jOS is a web app platform." />
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>jOS</title>
-  </head>
-
-  <body>
-
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/danielking/jos">View on GitHub</a>
-
-          <h1 id="project_title">jOS</h1>
-          <h2 id="project_tagline">jOS is a web app platform.</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/danielking/jos/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/danielking/jos/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a name="jos" class="anchor" href="#jos"><span class="octicon octicon-link"></span></a>jOS</h3>
-
-<p>jOS is a web app platform. The main purpose of this project is to build a web app platform form scratch experimentally.</p>
-
-<h3>
-<a name="demo" class="anchor" href="#demo"><span class="octicon octicon-link"></span></a>Demo</h3>
-
-<p>The demo of jOS is <a href="http://danielking.github.io/jos/demo">here</a>.</p>
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">jOS maintained by <a href="https://github.com/danielking">danielking</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
-  </body>
+    <head>
+        <title>jOS</title>
+        <link rel="stylesheet" type="text/css" href="core/css/semantic.css">
+        <link rel="stylesheet" type="text/css" href="core/css/main.css">
+        <script src="core/js/lib/base64.js"></script>
+        <script src="core/js/lib/underscore-min.js"></script>
+        <script src="core/js/lib/jquery-1.9.1.js"></script>
+        <script src="core/js/lib/angular.min.js"></script>
+        <script src="core/js/lib/semantic.min.js"></script>
+        <script src="core/js/lib/async.js"></script>
+        <script src="core/js/lib/pubsub.js"></script>
+        <script src="core/js/lib/github.js"></script>
+        <script src="core/js/main.js"></script>
+        <script src="core/js/templates.js"></script>
+    </head>
+    <body id="core" ng-controller="CoreController" ng-show="show">
+      <div core-navbar></div>
+      <div id="apps">
+        <div core-app ng-repeat="app in $$apps" ng-show="app.actived && !desktopActive" ng-class="app.name"></div>
+      </div>
+      <div id="desktop" ng-controller="DesktopController" ng-show="desktopActive">
+        <div class="ui segment app" ng-repeat="app in $$apps" ng-click="activeApp(app)">
+          <div class="ui top left attached label" ng-class="{black: !app.loaded, teal: app.loaded}">
+            {{app.title}}
+          </div>
+          <p>
+            description of this app.
+          </p>
+        </div>
+      </div>
+    </body>
 </html>
