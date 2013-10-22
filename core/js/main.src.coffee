@@ -88,17 +88,6 @@ angular.module('core').service 'apps', ['$http', '$rootScope', ($http, $rootScop
       _app.actived = _app == app
 ]
 
-angular.module('common').service 'common.github', ['$rootScope', ($rootScope) ->
-  # github = new Github username: '', password: ''
-  # user = github.getUser()
-  # console.log user
-  # user.gists (err, gists) ->
-  #   console.log gists
-
-  auth: ->
-]
-
-
 angular.module('common').service 'common.message', ['$rootScope', ($rootScope) ->
   publish: (message, data) ->
     PubSub.publish message, data
@@ -109,7 +98,12 @@ angular.module('common').service 'common.message', ['$rootScope', ($rootScope) -
 ]
 
 
-angular.module('core').controller 'CoreController', ['$scope', '$rootElement', 'apps', 'common.message', 'common.github', ($scope, $rootElement, apps, message, github) ->
+angular.module('common').service 'common.storage', ['$rootScope', ($rootScope) ->
+
+]
+
+
+angular.module('core').controller 'CoreController', ['$scope', '$rootElement', 'apps', 'common.message', 'common.storage', ($scope, $rootElement, apps, message, storage) ->
   $rootElement.attr 'id', 'core'
   $scope.desktopActive = true
 

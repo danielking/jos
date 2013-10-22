@@ -128,14 +128,6 @@
     }
   ]);
 
-  angular.module('common').service('common.github', [
-    '$rootScope', function($rootScope) {
-      return {
-        auth: function() {}
-      };
-    }
-  ]);
-
   angular.module('common').service('common.message', [
     '$rootScope', function($rootScope) {
       return {
@@ -151,8 +143,10 @@
     }
   ]);
 
+  angular.module('common').service('common.storage', ['$rootScope', function($rootScope) {}]);
+
   angular.module('core').controller('CoreController', [
-    '$scope', '$rootElement', 'apps', 'common.message', 'common.github', function($scope, $rootElement, apps, message, github) {
+    '$scope', '$rootElement', 'apps', 'common.message', 'common.storage', function($scope, $rootElement, apps, message, storage) {
       $rootElement.attr('id', 'core');
       $scope.desktopActive = true;
       $scope.$on('app_loaded_all', function() {

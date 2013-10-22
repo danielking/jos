@@ -19,6 +19,9 @@ a {
 a:hover {
   color: #00BAFF;
 }
+.hide {
+  display: none !important;
+}
 .right .text i.icon {
   margin-right: 0 !important;
   margin-left: 0 !important;
