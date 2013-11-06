@@ -21,7 +21,7 @@ module.exports = (grunt) ->
       static:
         expand: true
         cwd: 'src'
-        src: ['index.html', 'settings.json']
+        src: ['index.html', 'authcb.html', 'settings.json']
         dest: 'build/'
       libs:
         expand: true
@@ -54,7 +54,7 @@ module.exports = (grunt) ->
       options:
         livereload: true
       core_html:
-        files: ['src/index.html', 'src/settings.json']
+        files: ['src/index.html', 'src/authcb.html', 'src/settings.json']
         tasks: ['copy:static']
       core_jade:
         files: 'src/core/tpl/**.jade'

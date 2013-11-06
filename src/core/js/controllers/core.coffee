@@ -1,4 +1,4 @@
-angular.module('core').controller 'CoreController', ['$scope', '$rootElement', 'apps', 'common.message', 'common.github', ($scope, $rootElement, apps, message, github) ->
+angular.module('core').controller 'CoreController', ['$scope', '$rootElement', 'apps', 'common.message', 'common.storage', ($scope, $rootElement, apps, message, storage) ->
   $rootElement.attr 'id', 'core'
   $scope.desktopActive = true
 

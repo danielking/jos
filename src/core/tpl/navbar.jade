@@ -26,7 +26,16 @@
   a.item.right(ng-click='openSettingsDialog()')
     i.icon.settings.small
     | Settings
-  a.item.right(ng-click='openSignInDialog()')
+  a.item.right(ng-click='signIn()', ng-hide='$user')
     i.icon.sign.in.small
     | Sign in
-    
+  .item.user.right(ng-click='', ng-show='$user', ng-mouseover='showUserPopup()', ng-mouseout='hideUserPopup()')
+    a.popup(ng-click='', ng-show='userPopupVisible')
+      div
+        img(ng-src='{{$user.thumbnail}}')
+      .ui.tiny.buttons.basic
+        .ui.button(ng-click='signOut()')
+          i.icon.sign.out.small
+          | Sign out
+    i.icon.user
+    | {{$user.name}}
