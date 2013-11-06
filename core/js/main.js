@@ -56,11 +56,24 @@
   ]);
 
   angular.module('core').directive('coreNavbar', [
-    '$templateCache', function($templateCache) {
+    '$templateCache', 'common.storage', function($templateCache, storage) {
       return {
         template: $templateCache.get('navbar.html'),
         replace: true,
-        link: function(scope, element, attrs) {}
+        link: function(scope, element, attrs) {
+          scope.signIn = function() {
+            return storage.signIn();
+          };
+          scope.signOut = function() {
+            return storage.signOut();
+          };
+          scope.showUserPopup = function() {
+            return scope.userPopupVisible = true;
+          };
+          return scope.hideUserPopup = function() {
+            return scope.userPopupVisible = false;
+          };
+        }
       };
     }
   ]);
@@ -143,7 +156,38 @@
     }
   ]);
 
-  angular.module('common').service('common.storage', ['$rootScope', function($rootScope) {}]);
+  angular.module('common').service('common.storage', [
+    '$rootScope', function($rootScope) {
+      var CLIENT_ID;
+      CLIENT_ID = '413758671312.apps.googleusercontent.com';
+      hello.on('auth.login', function(auth) {
+        return hello(auth.network).api('/me').success(function(user) {
+          console.log(user);
+          return $rootScope.$apply(function() {
+            return $rootScope.$user = user;
+          });
+        });
+      });
+      hello.init({
+        google: CLIENT_ID
+      }, {
+        redirect_uri: 'authcb.html',
+        scope: 'drive'
+      });
+      return {
+        signIn: function() {
+          return hello('google').login();
+        },
+        signOut: function() {
+          return hello('google').logout(function() {
+            return $rootScope.$apply(function() {
+              return $rootScope.$user = null;
+            });
+          });
+        }
+      };
+    }
+  ]);
 
   angular.module('core').controller('CoreController', [
     '$scope', '$rootElement', 'apps', 'common.message', 'common.storage', function($scope, $rootElement, apps, message, storage) {

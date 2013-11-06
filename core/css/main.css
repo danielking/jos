@@ -19,9 +19,6 @@ a {
 a:hover {
   color: #00BAFF;
 }
-.hide {
-  display: none !important;
-}
 .right .text i.icon {
   margin-right: 0 !important;
   margin-left: 0 !important;
@@ -42,4 +39,19 @@ a:hover {
 }
 #desktop .app:hover {
   opacity: 0.8;
+}
+.user .popup {
+  position: absolute;
+  margin-top: 26px;
+  margin-left: -12px;
+  padding: 15px 15px;
+  box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 0px 1px;
+  background: white;
+}
+.user .popup img {
+  width: 120px;
+  height: 120px;
+}
+.user .popup .button {
+  width: 120px;
 }
