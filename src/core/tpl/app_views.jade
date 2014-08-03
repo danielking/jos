@@ -1,0 +1,1 @@
+.app-view(app-view, app='app', ng-repeat='app in extensions | filter: {type: "app", open: true}', ng-show='$root.user && !$root.desktop.visible')

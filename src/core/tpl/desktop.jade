@@ -1,0 +1,5 @@
+.desktop(ng-show='$root.user && $root.desktop.visible')
+	.apps
+		.app(ng-repeat='app in extensions | filter: {type: "app"}', ng-click='$root.app.open(app)')
+			i(ng-class='app.iconClass')
+			| {{ app.name }}

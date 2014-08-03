@@ -1,0 +1,5 @@
+.com-jedisto-jos-app-notebook(ng-controller='com.jedisto.jos.app.notebook.MainController')
+	.notes(ng-hide='loading')
+		.note(ng-repeat='note in notes')
+		.note.new
+			i.fa.fa-plus-circle

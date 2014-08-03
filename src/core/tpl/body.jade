@@ -1,4 +1,26 @@
-//- .ui.menu.fixed
-//- 	a.item.active
-//- 		i.icon.home
-//- 		| Home
+.navbar.navbar-toolbar.navbar-default.navbar-fixed-top(ng-controller='NavbarController')
+	.navbar-header
+		button.navbar-toggle(data-toggle='collapse', data-target='.navbar-collapse')
+			span.icon-bar
+			span.icon-bar
+			span.icon-bar
+		a.navbar-brand
+			.fa.fa-codepen
+			| &nbsp;JediOS
+	.collapse.navbar-collapse
+		ul.nav.navbar-nav(ng-show='user')
+			li.active
+				a
+					.fa.fa-home
+		ul.nav.navbar-nav.pull-right(ng-show='$root.user')
+			li
+				a
+					i.icon-baidu(ng-show='user.mediaType == "baidu"')
+					i.icon-qq(ng-show='user.mediaType == "qqdenglu"')
+					| &nbsp; {{ user.name }}
+			li
+				a(ng-click='$root.logout()')
+					.fa.fa-power-off
+
+include session
+include desktop

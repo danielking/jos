@@ -1,12 +1,57 @@
 <!DOCTYPE html>
 <head>
   <script src="lib/js/jquery-2.1.1.min.js"></script>
+  <script src="lib/js/angular.min.js"></script>
   <script src="lib/js/Baidu-Frontia-JS-1.0.0.js"></script>
-  <script src="lib/semantic/definitions/javascript/semantic.js"></script>
-  <link rel="stylesheet" href="lib/semantic/definitions/css/semantic.css"><!-- inject:js -->
+  <script src="lib/js/bootstrap.js"></script>
+  <script src="lib/js/bootbox.js"></script>
+  <script src="lib/js/async.js"></script>
+  <link rel="stylesheet" href="lib/css/bootstrap.css">
+  <link rel="stylesheet" href="lib/css/todc-bootstrap.css">
+  <link rel="stylesheet" href="lib/css/font-awesome.css">
+  <link rel="stylesheet" href="lib/css/wlige.css"><!-- inject:js -->
   <!-- endinject -->
   <!-- inject:css -->
   <!-- endinject -->
 </head>
-<body>
+<body ng-controller="CoreController">
+  <div ng-controller="NavbarController" class="navbar navbar-toolbar navbar-default navbar-fixed-top">
+    <div class="navbar-header">
+      <button data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand">
+        <div class="fa fa-codepen"></div>&nbsp;JediOS</a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul ng-show="user" class="nav navbar-nav">
+        <li class="active"><a>
+            <div class="fa fa-home"></div></a></li>
+      </ul>
+      <ul ng-show="$root.user" class="nav navbar-nav pull-right">
+        <li><a><i ng-show="user.mediaType == &quot;baidu&quot;" class="icon-baidu"></i><i ng-show="user.mediaType == &quot;qqdenglu&quot;" class="icon-qq"></i>&nbsp; {{ user.name }}</a></li>
+        <li><a ng-click="$root.logout()">
+            <div class="fa fa-power-off"></div></a></li>
+      </ul>
+    </div>
+  </div>
+  <div ng-controller="SessionController" ng-hide="$root.user" class="session">
+    <div class="well panel">
+      <div class="title">登录百度网盘</div>
+      <div class="btn-group">
+        <div ng-click="login(&quot;baidu&quot;)" class="btn btn-primary"><i class="icon-baidu"></i>&nbsp;百度账号登陆</div>
+        <div data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+          <div class="caret"></div>
+        </div>
+        <ul class="dropdown-menu">
+          <li ng-click="login(&quot;qqdenglu&quot;)"><a href="#"><i class="icon-qq"></i>&nbsp;QQ账号登陆</a></li>
+          <li ng-click="login(&quot;sinaweibo&quot;)"><a href="#"><i class="icon-weibo"></i>&nbsp;新浪微博账号登陆</a></li>
+          <li ng-click="login(&quot;qqweibo&quot;)"><a href="#"><i class="icon-qq-weibo"></i>&nbsp;腾讯微博账号登陆</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div ng-show="$root.user &amp;&amp; $root.desktop.visible" class="desktop">
+    <div class="apps">
+      <div ng-repeat="app in extensions | filter: {type: &quot;app&quot;}" ng-click="$root.app.open(app)" class="app"><i ng-class="app.iconClass"></i>{{ app.name }}</div>
+    </div>
+  </div>
+  <div app-view app="app" ng-repeat="app in extensions | filter: {type: &quot;app&quot;, open: true}" ng-show="$root.user &amp;&amp; !$root.desktop.visible" class="app-view"></div>
 </body>

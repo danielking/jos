@@ -1,0 +1,22 @@
+.session(ng-controller='SessionController', ng-hide='$root.user')
+	.well.panel
+		.title 登录百度网盘
+		.btn-group
+			.btn.btn-primary(ng-click='login("baidu")')
+				i.icon-baidu
+				| &nbsp;百度账号登陆
+			.btn.btn-primary.dropdown-toggle(data-toggle='dropdown')
+				.caret
+			ul.dropdown-menu
+				li(ng-click='login("qqdenglu")')
+					a(href='#')
+						i.icon-qq
+						| &nbsp;QQ账号登陆
+				li(ng-click='login("sinaweibo")')
+					a(href='#')
+						i.icon-weibo
+						| &nbsp;新浪微博账号登陆
+				li(ng-click='login("qqweibo")')
+					a(href='#')
+						i.icon-qq-weibo
+						| &nbsp;腾讯微博账号登陆

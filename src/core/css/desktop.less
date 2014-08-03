@@ -1,0 +1,30 @@
+@import 'common';
+@import 'flexbox';
+.desktop {
+	.abs;
+	.flex-display;
+	top: 38px;
+
+	.apps {
+		padding: 10px;
+		.app {
+			float: left;
+			width: 120px;
+			height: 120px;
+			padding: 10px;
+			margin: 10px;
+			border: 1px solid #eee;
+			text-align: center;
+			cursor: pointer;
+			opacity: 0.8;
+			i {
+				display: block;
+				font-size: 72px;
+				margin-top: 8px;
+			}
+			&:hover {
+				opacity: 1;
+			}
+		}
+	}
+}

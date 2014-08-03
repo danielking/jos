@@ -1,39 +1,36 @@
-# angular.module 'common', []
+jos = angular.module 'jos', ['jos']
+jos.config [
+		'$controllerProvider', 
+		'$compileProvider', 
+		'$filterProvider', 
+		'$provide', 
+		($controllerProvider,
+			$compileProvider,
+			$filterProvider,
+			$provide) ->
 
-# angular.module 'core', ['common']
+			jos.controller = $controllerProvider.register
+			jos.service = $provide.service
+			jos.factory = $provide.factory
+			jos.filter = $filterProvider.register
+			jos.directive = $compileProvider.directive
+	]
+	.run [
+		'$rootScope',
+		($rootScope) ->
+			$rootScope.settings = window.settings
+			$rootScope.extensions = window.extensions
+	]
 
-# angular.module('core').run ['apps', '$rootScope', 'common.message', (apps, $rootScope, message) ->
-#   $rootScope.$$page_title = 'jOS'
-#   apps.load()
-#   message.subscribe 'app'
-# ]
+window.extensions = []
+window.reg = (ext) ->
+	window.extensions.push ext
 
-# window.initUi = (el) ->
-#   el = $(el)
-#   el.find('.ui.dropdown').dropdown
-#     debug: false
-
-# $ ->
-#   angular.bootstrap document, ['core']
-#   initUi document
-
-jos =
-	id: '3269124'
-	apikey: 'brZm6Sw5sXDNGDC3o2bNvenf'
-	seckey: 'GZ2PovOMBTIWRjHjlVeF2CplS1v4CVmj'
-
-redirect_url = window.location.href
-
-baidu.frontia.init
-	akiKey: jos.apikey
-
-user = baidu.frontia.getCurrentAccount()
-unless user
-	options =
-		response_type: 'token'
-		media_type: 'baidu'
-		redirect_uri: window.location.href
-		client_type: 'web'
-		scope: 'netdisk'
-	baidu.frontia.social.login options
+$ ->
+	$.ajax
+			url: 'settings.json'
+			dataType: 'json'
+		.then (settings) ->
+			window.settings = settings
+			angular.bootstrap document, ['jos']
 
