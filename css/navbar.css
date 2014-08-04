@@ -1,0 +1,8 @@
+.navbar ul.nav.navbar-nav > li > a {
+  cursor: pointer;
+}
+.navbar ul.nav.navbar-nav > li > a:hover {
+  background-color: #f7f7f7;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm5hdmJhci5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVFLE9BREQsR0FBRSxJQUFJLFdBQVksS0FDZjtFQUNELGVBQUE7O0FBQ0EsT0FIRixHQUFFLElBQUksV0FBWSxLQUNmLElBRUE7RUFDQSx5QkFBQSIsInNvdXJjZXNDb250ZW50IjpbIi5uYXZiYXIge1xyXG5cdHVsLm5hdi5uYXZiYXItbmF2ID4gbGkge1xyXG5cdFx0JiA+IGEge1xyXG5cdFx0XHRjdXJzb3I6IHBvaW50ZXI7XHJcblx0XHRcdCY6aG92ZXIge1xyXG5cdFx0XHRcdGJhY2tncm91bmQtY29sb3I6ICNmN2Y3Zjc7XHJcblx0XHRcdH1cclxuXHRcdH1cclxuXHR9XHJcbn0iXSwiZmlsZSI6Im5hdmJhci5jc3MiLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ== */
