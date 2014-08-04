@@ -9,9 +9,13 @@
 			| &nbsp;JediOS
 	.collapse.navbar-collapse
 		ul.nav.navbar-nav(ng-show='user')
-			li.active
-				a
+			li(ng-class='{active: $root.desktop.visible}')
+				a(ng-click='$root.desktop.visible = true')
 					.fa.fa-home
+			li(ng-repeat='app in extensions | filter: {open: true}', ng-class='{active: !$root.desktop.visible && $root.app.activated == app}')
+				a(ng-click='$root.app.open(app)')
+					i(ng-class='app.iconClass')
+					| &nbsp; {{ app.name }}
 		ul.nav.navbar-nav.pull-right(ng-show='$root.user')
 			li
 				a

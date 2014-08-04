@@ -1,5 +1,42 @@
 .com-jedisto-jos-app-notebook(ng-controller='com.jedisto.jos.app.notebook.MainController')
-	.notes(ng-hide='loading')
-		.note(ng-repeat='note in notes')
-		.note.new
+	.notes.abs(ng-hide='loading', ng-class='{"full-width": !note.selected}')
+		.note.new(ng-click='note.new()')
 			i.fa.fa-plus-circle
+		.note(ng-repeat='item in notes | orderBy:ctime:reverse ', ng-click='note.open(item)', ng-class='{selected: item == note.selected}')
+			i.fa.fa-file-text-o
+			.name
+				| {{ item.ctime }}
+	.detail.abs(ng-show='note.selected')
+		.content.abs
+			.row.info
+				.col-sm-2 创建时间
+				.col-sm-4 {{ note.selected.created_at | date: 'yyyy-MM-dd HH:mm:ss' }}
+				.col-sm-2 更新时间
+				.col-sm-4 {{ note.selected.updated_at | date: 'yyyy-MM-dd HH:mm:ss' }}
+			.row.info
+				.col-sm-2 网盘路径
+				.col-sm-10 {{ note.selected.path }}
+			.row.info
+				.col-sm-2 下载链接
+				.col-sm-10
+					a(href='{{ note.selected.url }}')
+						| {{ note.selected.url }}
+			.body
+				div(ng-hide='note.editing')
+					| {{ note.selected.content }}
+				div(ng-show='note.editing')
+					textarea.form-control(ng-model='note.selected.content', rows='15')
+			.row.actions(ng-show='note.selected.loaded')
+				.btn-group
+					.btn.btn-default(ng-hide='note.editing', ng-click='note.edit()')
+						.fa.fa-edit
+						| &nbsp;编辑
+					.btn.btn-default(ng-show='note.editing', ng-click='note.cancel()')
+						.fa.fa-edit
+						| &nbsp;取消
+					.btn.btn-default(ng-show='note.editing', ng-click='note.save()')
+						.fa.fa-save
+						| &nbsp;保存
+					.btn.btn-default(ng-click='note.delete()')
+						.fa.fa-trash-o
+						| &nbsp;删除

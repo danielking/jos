@@ -36,6 +36,19 @@ paths =
 				'ext/**/reg.js'
 			]
 		extensions: 'debug/ext'
+	dist:
+		fonts: 
+			from: 'debug/lib/fonts/**/*'
+			to: 'dist/fonts'
+		img:
+			from: 'debug/lib/img/**/*'
+			to: 'dist/img'
+		css:
+			from: ['debug/lib/css/**/*.css', 'debug/css/**/*.css']
+			to: 'dist/css'
+		js:
+			from: ['debug/lib/js/**/*.js', 'debug/js/**/*.js', 'ext/**/reg.js']
+			to: 'dist/js'
 	extensions:
 		root: 'src/ext'
 		watches: []
@@ -154,6 +167,15 @@ gulp.task 'watch', ->
 
 tasks = for watch in paths.extensions.watches then watch.task
 gulp.task 'build:ext', tasks
-gulp.task 'build', ['build:core:coffee', 'build:core:less', 'build:core:jade', 'build:inject']
-gulp.task 'default', ['copy:lib', 'copy:config', 'build:ext', 'build', 'server', 'watch']
+gulp.task 'build:debug', ['build:core:coffee', 'build:core:less', 'build:core:jade', 'build:inject']
+gulp.task 'default', ['copy:lib', 'copy:config', 'build:ext', 'build:debug', 'server', 'watch']
+
+gulp.task 'dist', ['copy:lib', 'copy:config', 'build:ext', 'build:debug'], ->
+	gulp.src paths.dist.css.from
+		.pipe concat 'jos.css'
+		.pipe gulp.dest paths.dist.css.to
+
+	gulp.src paths.dist.js.from
+		.pipe concat 'jos.js'
+		.pipe gulp.dest paths.dist.js.to
 

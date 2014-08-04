@@ -22,8 +22,9 @@
     </div>
     <div class="collapse navbar-collapse">
       <ul ng-show="user" class="nav navbar-nav">
-        <li class="active"><a>
+        <li ng-class="{active: $root.desktop.visible}"><a ng-click="$root.desktop.visible = true">
             <div class="fa fa-home"></div></a></li>
+        <li ng-repeat="app in extensions | filter: {open: true}" ng-class="{active: !$root.desktop.visible &amp;&amp; $root.app.activated == app}"><a ng-click="$root.app.open(app)"><i ng-class="app.iconClass"></i>&nbsp; {{ app.name }}</a></li>
       </ul>
       <ul ng-show="$root.user" class="nav navbar-nav pull-right">
         <li><a><i ng-show="user.mediaType == &quot;baidu&quot;" class="icon-baidu"></i><i ng-show="user.mediaType == &quot;qqdenglu&quot;" class="icon-qq"></i>&nbsp; {{ user.name }}</a></li>

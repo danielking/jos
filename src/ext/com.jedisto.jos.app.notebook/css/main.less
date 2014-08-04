@@ -1,6 +1,14 @@
+@import 'flexbox';
 .com-jedisto-jos-app-notebook {
 	.notes {
 		padding: 10px;
+		width: 400px;
+		overflow: auto;
+
+		&.full-width {
+			width: auto;
+		}
+
 		.note {
 			float: left;
 			margin: 10px;
@@ -8,21 +16,64 @@
 			height: 100px;
 			border: 1px solid #eee;
 			opacity: 0.6;
+			cursor: pointer;
 			i {
+				text-align: center;
 				width: 64px;
 				height: 64px;
 				font-size: 64px;
+				line-height: 64px;
 				margin: 8px 18px;
 			}
+			.name {
+				text-align: center;
+			}
 			&.new {
-				cursor: pointer;
 				i {
+					margin-top: 16px;
 					font-size: 32px;
-					margin: 34px 34px;
 				}
 			}
 			&:hover {
 				opacity: 0.8;
+			}
+			&.selected {
+				background: #f3f3f3;
+				opacity: 1;
+			}
+		}
+	}
+	.detail {
+		left: 400px;
+		padding: 30px;
+		.content {
+			top: 20px;
+			bottom: 20px;
+			left: 20px;
+			right: 20px;
+			padding: 20px;
+			background-color: #fcfcfc;
+			border: 1px solid #eee;
+			.flex-display;
+			.flex-direction(column);
+
+			.info {
+				a {
+					display: block;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden;
+				}
+			}
+			.body {
+				.flex(1);
+				margin-top: 20px;
+				font-size: 1.4em;
+				overflow: auto;
+			}
+			.actions {
+				text-align: right;
+				padding: 20px 20px 0;
 			}
 		}
 	}

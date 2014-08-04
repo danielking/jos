@@ -4,7 +4,8 @@
   "description": "jedios!",
   "repository": "git://github.com/danielking/jos.git",
   "scripts": {
-    "dev": "node node_modules/gulp/bin/gulp.js"
+    "dev": "node node_modules/gulp/bin/gulp.js",
+    "dist": "node node_modules/gulp/bin/gulp.js dist"
   },
   "devDependencies": {
     "coffee-script": "^1.7.1",

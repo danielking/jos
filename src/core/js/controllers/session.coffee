@@ -16,12 +16,12 @@ jos.controller 'SessionController', [
 
 		init = ->
 			user = baidu.frontia.getCurrentAccount()
-
 			if !user or user.getType() != 'user'
 			else
 				$scope.$root.user =
 					name: user.getName()
 					mediaType: user.getMediaType()
+					accessToken: user.getAccessToken()
 
 		$scope.$root.user = null
 
@@ -31,8 +31,10 @@ jos.controller 'SessionController', [
 				media_type: mediaType || 'baidu'
 				redirect_uri: if window.location.hostname = '127.0.0.1'
 						'http://127.0.0.1:7890/debug'
-					else
+					else if window.location.hostname == 'jos.jedisto.com'
 						'http://jos.jedisto.com'
+					else if window.location.hostname == 'danielking.github.io'
+						'http://danielking.github.io/jos'
 				client_type: 'web'
 				scope: 'netdisk'
 			baidu.frontia.social.login options
