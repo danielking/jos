@@ -1,35 +1,72 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>jOS</title>
-        <link rel="stylesheet" type="text/css" href="core/css/semantic.css">
-        <link rel="stylesheet" type="text/css" href="core/css/main.css">
-        <script src="core/js/lib/base64.js"></script>
-        <script src="core/js/lib/underscore-min.js"></script>
-        <script src="core/js/lib/jquery-1.9.1.js"></script>
-        <script src="core/js/lib/angular.min.js"></script>
-        <script src="core/js/lib/semantic.min.js"></script>
-        <script src="core/js/lib/async.js"></script>
-        <script src="core/js/lib/pubsub.js"></script>
-        <script src="core/js/lib/hello.all.min.js"></script>
-        <script src="core/js/main.js"></script>
-        <script src="core/js/templates.js"></script>
-        <script type="text/javascript" name="baidu-tc-cerfication" src="http://apps.bdimg.com/cloudaapi/lightapp.js#638c7acbf51cead24d8385b62838fc9e"></script><script type="text/javascript">window.bd && bd._qdc && bd._qdc.init({app_id: '7bae161b7f19a010f150240a'});</script>
-    </head>
-    <body id="core" ng-controller="CoreController" ng-show="show">
-      <div core-navbar></div>
-      <div id="apps">
-        <div core-app ng-repeat="app in $$apps" ng-show="app.actived && !desktopActive" ng-class="app.name"></div>
-      </div>
-      <div id="desktop" ng-controller="DesktopController" ng-show="desktopActive">
-        <div class="ui segment app" ng-repeat="app in $$apps" ng-click="activeApp(app)">
-          <div class="ui top left attached label" ng-class="{black: !app.loaded, teal: app.loaded}">
-            {{app.title}}
-          </div>
-          <p>
-            description of this app.
-          </p>
+<head>
+  <script src="lib/js/jquery-2.1.1.min.js"></script>
+  <script src="lib/js/angular.min.js"></script>
+  <script src="lib/js/Baidu-Frontia-JS-1.0.0.js"></script>
+  <script src="lib/js/bootstrap.js"></script>
+  <script src="lib/js/bootbox.js"></script>
+  <script src="lib/js/async.js"></script>
+  <link rel="stylesheet" href="lib/css/bootstrap.css">
+  <link rel="stylesheet" href="lib/css/todc-bootstrap.css">
+  <link rel="stylesheet" href="lib/css/font-awesome.css">
+  <link rel="stylesheet" href="lib/css/wlige.css"><!-- inject:js -->
+  <script src="js/main.js"></script>
+  <script src="js/controllers/core.js"></script>
+  <script src="js/controllers/navbar.js"></script>
+  <script src="js/controllers/session.js"></script>
+  <script src="js/directives/app_view.js"></script>
+  <script src="js/services/storage.js"></script>
+  <script src="ext/com.jedisto.jos.app.notebook/reg.js"></script>
+  <!-- endinject -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="css/app_view.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/desktop.css">
+  <link rel="stylesheet" href="css/flexbox.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/session.css">
+  <!-- endinject -->
+</head>
+<body ng-controller="CoreController">
+  <div ng-controller="NavbarController" class="navbar navbar-toolbar navbar-default navbar-fixed-top">
+    <div class="navbar-header">
+      <button data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand">
+        <div class="fa fa-codepen"></div>&nbsp;JediOS</a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul ng-show="user" class="nav navbar-nav">
+        <li ng-class="{active: $root.desktop.visible}"><a ng-click="$root.desktop.visible = true">
+            <div class="fa fa-home"></div></a></li>
+        <li ng-repeat="app in extensions | filter: {open: true}" ng-class="{active: !$root.desktop.visible &amp;&amp; $root.app.activated == app}"><a ng-click="$root.app.open(app)"><i ng-class="app.iconClass"></i>&nbsp; {{ app.name }}</a></li>
+      </ul>
+      <ul ng-show="$root.user" class="nav navbar-nav pull-right">
+        <li><a><i ng-show="user.mediaType == &quot;baidu&quot;" class="icon-baidu"></i><i ng-show="user.mediaType == &quot;qqdenglu&quot;" class="icon-qq"></i>&nbsp; {{ user.name }}</a></li>
+        <li><a ng-click="$root.logout()">
+            <div class="fa fa-power-off"></div></a></li>
+      </ul>
+    </div>
+  </div>
+  <div ng-controller="SessionController" ng-hide="$root.user" class="session">
+    <div class="well panel">
+      <div class="title">登录百度网盘</div>
+      <div class="btn-group">
+        <div ng-click="login(&quot;baidu&quot;)" class="btn btn-primary"><i class="icon-baidu"></i>&nbsp;百度账号登陆</div>
+        <div data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+          <div class="caret"></div>
         </div>
+        <ul class="dropdown-menu">
+          <li ng-click="login(&quot;qqdenglu&quot;)"><a href="#"><i class="icon-qq"></i>&nbsp;QQ账号登陆</a></li>
+          <li ng-click="login(&quot;sinaweibo&quot;)"><a href="#"><i class="icon-weibo"></i>&nbsp;新浪微博账号登陆</a></li>
+          <li ng-click="login(&quot;qqweibo&quot;)"><a href="#"><i class="icon-qq-weibo"></i>&nbsp;腾讯微博账号登陆</a></li>
+        </ul>
       </div>
-    </body>
-</html>
+    </div>
+  </div>
+  <div ng-show="$root.user &amp;&amp; $root.desktop.visible" class="desktop">
+    <div class="apps">
+      <div ng-repeat="app in extensions | filter: {type: &quot;app&quot;}" ng-click="$root.app.open(app)" class="app"><i ng-class="app.iconClass"></i>{{ app.name }}</div>
+    </div>
+  </div>
+  <div app-view app="app" ng-repeat="app in extensions | filter: {type: &quot;app&quot;, open: true}" ng-show="$root.user &amp;&amp; !$root.desktop.visible" class="app-view"></div>
+</body>
